@@ -117,7 +117,7 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
         {
             /// @deprecated (3.1) remove this in Lucene 5.0, index bw compat 
             [Obsolete("(3.1) remove this in Lucene 5.0, index bw compat")]
-            internal static readonly CharArraySet DEFAULT_STOP_SET_30 = CharArraySet.UnmodifiableSet(new CharArraySet(LuceneVersion.LUCENE_CURRENT, Arrays.AsList(FRENCH_STOP_WORDS), false));
+            internal static readonly CharArraySet DEFAULT_STOP_SET_30 = CharArraySet.UnmodifiableSet(new CharArraySet(LuceneVersion.LUCENE_CURRENT, FRENCH_STOP_WORDS, false));
             internal static readonly CharArraySet DEFAULT_STOP_SET;
             static DefaultSetHolder()
             {
