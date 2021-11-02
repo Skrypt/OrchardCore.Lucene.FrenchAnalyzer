@@ -1,9 +1,9 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Feature(
-    Id = "OrchardCore.Lucene.FrenchAnalyzer",
-    Name = "Lucene French Analyzer",
-    Description = "Adds a french analyzer that supports sorting diacritics",
+    Id = "OrchardCore.Lucene.FrenchAnalyzers",
+    Name = "Lucene French Analyzers",
+    Description = "Adds Lucene french analyzer and a custom one that supports sorting diacritics",
     Dependencies = new[]
     {
         "OrchardCore.Lucene"

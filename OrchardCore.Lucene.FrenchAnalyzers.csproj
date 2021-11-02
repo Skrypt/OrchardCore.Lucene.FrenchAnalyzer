@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(AspNetCoreTargetFrameworks)</TargetFrameworks>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <Configurations>Debug;Release;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.2.0-preview-16565" />
+    <PackageReference Include="OrchardCore.Lucene" Version="1.2.0-preview-16565" />
+    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00015" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,123 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\Repositories\\AgriExtra\\src\\OrchardCore.Modules\\OrchardCore.Lucene.FrenchAnalyzers\\OrchardCore.Lucene.FrenchAnalyzers.csproj": {}
+  },
+  "projects": {
+    "F:\\Repositories\\AgriExtra\\src\\OrchardCore.Modules\\OrchardCore.Lucene.FrenchAnalyzers\\OrchardCore.Lucene.FrenchAnalyzers.csproj": {
+      "version": "1.0.0-rc2",
+      "restore": {
+        "projectUniqueName": "F:\\Repositories\\AgriExtra\\src\\OrchardCore.Modules\\OrchardCore.Lucene.FrenchAnalyzers\\OrchardCore.Lucene.FrenchAnalyzers.csproj",
+        "projectName": "OrchardCore.Lucene.FrenchAnalyzers",
+        "projectPath": "F:\\Repositories\\AgriExtra\\src\\OrchardCore.Modules\\OrchardCore.Lucene.FrenchAnalyzers\\OrchardCore.Lucene.FrenchAnalyzers.csproj",
+        "packagesPath": "C:\\Users\\jasmi\\.nuget\\packages\\",
+        "outputPath": "F:\\Repositories\\AgriExtra\\src\\OrchardCore.Modules\\OrchardCore.Lucene.FrenchAnalyzers\\obj\\",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "F:\\Repositories\\AgriExtra\\NuGet.Config",
+          "C:\\Users\\jasmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0",
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.cloudsmith.io/orchardcore/preview/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          },
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Lucene.Net": {
+              "target": "Package",
+              "version": "[4.8.0-beta00015, )"
+            },
+            "OrchardCore.Lucene": {
+              "target": "Package",
+              "version": "[1.2.0-preview-16565, )"
+            },
+            "OrchardCore.Module.Targets": {
+              "target": "Package",
+              "version": "[1.2.0-preview-16565, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.2.21505.57\\RuntimeIdentifierGraph.json"
+        },
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Lucene.Net": {
+              "target": "Package",
+              "version": "[4.8.0-beta00015, )"
+            },
+            "OrchardCore.Lucene": {
+              "target": "Package",
+              "version": "[1.2.0-preview-16565, )"
+            },
+            "OrchardCore.Module.Targets": {
+              "target": "Package",
+              "version": "[1.2.0-preview-16565, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.2.21505.57\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

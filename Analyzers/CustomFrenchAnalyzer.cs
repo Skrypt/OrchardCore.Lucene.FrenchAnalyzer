@@ -1,3 +1,4 @@
+// Lucene version compatibility level 4.8.1
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Core;
 using Lucene.Net.Analysis.Fr;
@@ -5,30 +6,30 @@ using Lucene.Net.Analysis.Miscellaneous;
 using Lucene.Net.Analysis.Snowball;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Analysis.Util;
-using Lucene.Net.Support;
 using Lucene.Net.Util;
 using System;
 using System.IO;
 using System.Text;
+using Analyzers = Lucene.Net.Tartarus.Snowball.Ext;
 
-namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
+namespace OrchardCore.Lucene.FrenchAnalyzers
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// <see cref="Analyzer"/> for French language. 
@@ -54,7 +55,7 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
     /// <para><b>NOTE</b>: This class uses the same <see cref="LuceneVersion"/>
     /// dependent settings as <see cref="StandardAnalyzer"/>.</para>
     /// </summary>
-    public sealed class FrenchAnalyzer : StopwordAnalyzerBase
+    public sealed class CustomFrenchAnalyzer : StopwordAnalyzerBase
     {
         /// <summary>
         /// Extended list of typical French stopwords. </summary>
@@ -105,35 +106,29 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
         /// <summary>
         /// Returns an unmodifiable instance of the default stop-words set. </summary>
         /// <returns> an unmodifiable instance of the default stop-words set. </returns>
-        public static CharArraySet DefaultStopSet
-        {
-            get
-            {
-                return DefaultSetHolder.DEFAULT_STOP_SET;
-            }
-        }
+        public static CharArraySet DefaultStopSet => DefaultSetHolder.DEFAULT_STOP_SET;
 
         private class DefaultSetHolder
         {
             /// @deprecated (3.1) remove this in Lucene 5.0, index bw compat 
             [Obsolete("(3.1) remove this in Lucene 5.0, index bw compat")]
             internal static readonly CharArraySet DEFAULT_STOP_SET_30 = CharArraySet.UnmodifiableSet(new CharArraySet(LuceneVersion.LUCENE_CURRENT, FRENCH_STOP_WORDS, false));
-            internal static readonly CharArraySet DEFAULT_STOP_SET;
-            static DefaultSetHolder()
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
                 try
                 {
-                    DEFAULT_STOP_SET = WordlistLoader.GetSnowballWordSet(
+                    return WordlistLoader.GetSnowballWordSet(
                         IOUtils.GetDecodingReader(typeof(SnowballFilter), DEFAULT_STOPWORD_FILE, Encoding.UTF8),
 #pragma warning disable 612, 618
                         LuceneVersion.LUCENE_CURRENT);
 #pragma warning restore 612, 618
                 }
-                catch (IOException)
+                catch (Exception ex)
                 {
                     // default set should always be present as it is part of the
                     // distribution (JAR)
-                    throw new Exception("Unable to load default stopword set");
+                    throw new Exception("Unable to load default stopword set", ex);
                 }
             }
         }
@@ -141,9 +136,9 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
         /// <summary>
         /// Builds an analyzer with the default stop words (<see cref="DefaultStopSet"/>).
         /// </summary>
-        public FrenchAnalyzer(LuceneVersion matchVersion)
+        public CustomFrenchAnalyzer(LuceneVersion matchVersion)
 #pragma warning disable 612, 618
-              : this(matchVersion, matchVersion.OnOrAfter(LuceneVersion.LUCENE_31) ?
+              : this(matchVersion, matchVersion.OnOrAfter(LuceneVersion.LUCENE_31) ? 
                     DefaultSetHolder.DEFAULT_STOP_SET : DefaultSetHolder.DEFAULT_STOP_SET_30)
 #pragma warning restore 612, 618
         {
@@ -156,7 +151,7 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
         ///          lucene compatibility version </param>
         /// <param name="stopwords">
         ///          a stopword set </param>
-        public FrenchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords)
+        public CustomFrenchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords)
               : this(matchVersion, stopwords, CharArraySet.EMPTY_SET)
         {
         }
@@ -170,7 +165,7 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
         ///          a stopword set </param>
         /// <param name="stemExclutionSet">
         ///          a stemming exclusion set </param>
-        public FrenchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclutionSet)
+        public CustomFrenchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclutionSet)
               : base(matchVersion, stopwords)
         {
             this.excltable = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stemExclutionSet));
@@ -211,10 +206,10 @@ namespace OrchardCore.Lucene.FrenchAnalyzer.Analyzers
                 }
                 else
                 {
-                    result = new SnowballFilter(result, new FrenchStemmer());
+                    result = new SnowballFilter(result, new Analyzers.FrenchStemmer());
                 }
-                result = new ASCIIFoldingFilter(result);
-                return new TokenStreamComponents(source, new LowerCaseFilter(m_matchVersion, result));
+                result = new ASCIIFoldingFilter(result); // Removes diacritics
+                return new TokenStreamComponents(source, result);
             }
             else
             {
